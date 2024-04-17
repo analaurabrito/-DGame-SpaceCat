@@ -3,8 +3,10 @@
 ![image](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
 ![image](https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white)
 
+_Infanto-Juvenil. Fantasia. Puzzle. 2D._ </br>
+Uma jovem acaba encontrando um portal em um bosque que a leva para uma realidade alternativa com a fauna da floresta, onde ela assume uma forma animal felina e deve encontrar uma maneira de voltar para o seu universo.
+
 > Esse repositório foi criado como atividade avaliativa para a disciplina de Desenvolvimento de Games, da Universidade de Vila Velha, ministrada pelo professor Saulo Pereira Ribeiro.
-</br>
 
 ### Ajustes e melhorias
 
