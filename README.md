@@ -13,8 +13,10 @@ Uma jovem acaba encontrando um portal em um bosque que a leva para uma realidade
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas, durante o primeiro semestre:
 
 - [x] Definição de tema e estilo do jogo;
+- [ ] Construção da históra e dos níveis;
 - [x] Documentação do Game Design;
 - [x] Escolha de assets;
+- [ ] Criação dos ambientes;
 - [ ] Codificação do primeiro nível do jogo;
 
 ## 💻 Pré-requisitos
