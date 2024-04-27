@@ -3,3 +3,9 @@
 *.nes
 *.rom
 *.sav
+
+# dependencies
+/Library/
+/Logs/
+/Packages/
+/Temp/
