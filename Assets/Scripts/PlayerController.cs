@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Interactable focus;
+
     public LayerMask movementMask;
 
-    private RigidBody rb;
+    private Rigidbody rb;
     public float movementSpeed;
     private float dirX, dirZ;
 
@@ -16,20 +18,19 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        rb = GetComponent<RigidBody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+
+        dirX = Input.GetAxis("Horizontal") * movementSpeed;
+        dirZ = Input.GetAxis("Vertical") * movementSpeed;
+
+        if (dirX != null || dirZ != null)
         {
-            Ray ray = boxCollider.bounds.center;
-            if (Physics.Raycast(ray, out hit, 100, movementMask))
-            {
-                dirX = Input.GetAxis("Horizontal") * movementSpeed;
-                dirZ = Input.GetAxis("Vertical") * movementSpeed;
-            }
+            RemoveFocus();
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -39,7 +40,12 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 100))
             {
-                
+                interactable = hit.collider.GetComponent<Interactable>();
+
+                if (interactable != null)
+                {
+                    SetFocus(interactable);
+                }
             }
         }
     }
@@ -47,5 +53,15 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
+    }
+
+    void SetFocus (Interactable newFocus)
+    {
+        focus = newFocus;
+    }
+
+    void RemoveFocus ()
+    {
+        focus = null;
     }
 }

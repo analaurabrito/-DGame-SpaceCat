@@ -11,7 +11,7 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         inventory = inventory.instance;
-        inventory.onItemChangeCallback += UpdateUI();
+        inventory.onItemChangedCallback += UpdateUI();
     }
 
     // Update is called once per frame
