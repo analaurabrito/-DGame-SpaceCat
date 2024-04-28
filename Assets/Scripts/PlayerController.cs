@@ -6,45 +6,62 @@ public class PlayerController : MonoBehaviour
 {
     public Interactable focus;
 
+    public GameObject portalEnabled;
+
     public LayerMask movementMask;
 
-    private Rigidbody rb;
-    public float movementSpeed;
-    private float dirX, dirZ;
+    private Rigidbody2D rb;
+    public float movementSpeed = 5f;
+    private Animator animator;
+    private Vector2 input;
 
     Camera cam;
 
-    // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    private string currentAnimState = "Idle";
+
     void Update()
     {
-
-        dirX = Input.GetAxis("Horizontal") * movementSpeed;
-        dirZ = Input.GetAxis("Vertical") * movementSpeed;
-
-        if (dirX != null || dirZ != null)
+        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (input.magnitude > 0)
         {
-            RemoveFocus();
+            if (currentAnimState != "Movement")
+            {
+                animator.CrossFade("Movement", 0, 0);
+                currentAnimState = "Movement";
+                RemoveFocus();
+            }
+        }
+        else
+        {
+            if (currentAnimState != "Idle")
+            {
+                animator.CrossFade("Idle", 0, 0);
+                currentAnimState = "Idle";
+            }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 100))
             {
-                interactable = hit.collider.GetComponent<Interactable>();
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
 
                 if (interactable != null)
                 {
                     SetFocus(interactable);
+                }
+                if (interactable == portalEnabled)
+                {
+                    animator.SetTrigger("EnteringPortal");
                 }
             }
         }
@@ -52,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
+        rb.MovePosition(transform.position + new Vector3(input.x, input.y).normalized * movementSpeed * Time.deltaTime);
     }
 
     void SetFocus (Interactable newFocus)

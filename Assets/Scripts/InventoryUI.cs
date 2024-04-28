@@ -1,27 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
+/* This object manages the inventory UI. */
 
 public class InventoryUI : MonoBehaviour
 {
 
-    Inventory inventory;
+	public GameObject inventoryUI;  // The entire UI
+	public Transform itemsParent;   // The parent object of all the items
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        inventory = inventory.instance;
-        inventory.onItemChangedCallback += UpdateUI();
-    }
+	Inventory inventory;    // Our current inventory
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void Start()
+	{
+		inventory = Inventory.instance;
+		inventory.onItemChangedCallback += UpdateUI;
+	}
 
-    void UpdateUI()
-    {
-        Debug.Log("UPDATING UI");
-    }
+	// Check to see if we should open/close the inventory
+	void Update()
+	{
+		if (Input.GetButtonDown("Inventory"))
+		{
+			inventoryUI.SetActive(!inventoryUI.activeSelf);
+			UpdateUI();
+		}
+	}
+
+	// Update the inventory UI by:
+	//		- Adding items
+	//		- Clearing empty slots
+	// This is called using a delegate on the Inventory.
+	public void UpdateUI()
+	{
+		InventorySlot[] slots = GetComponentsInChildren<InventorySlot>();
+
+		for (int i = 0; i < slots.Length; i++)
+		{
+			if (i < inventory.items.Count)
+			{
+				slots[i].AddItem(inventory.items[i]);
+			}
+			else
+			{
+				slots[i].ClearSlot();
+			}
+		}
+	}
+
 }
