@@ -5,9 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Interactable focus;
-
-    public GameObject portalEnabled;
-
+    public GameObject portal;
     public LayerMask movementMask;
 
     private Rigidbody2D rb;
@@ -59,7 +57,7 @@ public class PlayerController : MonoBehaviour
                 {
                     SetFocus(interactable);
                 }
-                if (interactable == portalEnabled)
+                if (interactable == portal)
                 {
                     animator.SetTrigger("EnteringPortal");
                 }
