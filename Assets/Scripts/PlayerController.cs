@@ -7,9 +7,10 @@ public class PlayerController : MonoBehaviour
     public Interactable focus;
     public GameObject portal;
     public LayerMask movementMask;
-
-    private Rigidbody2D rb;
     public float movementSpeed = 5f;
+
+
+    private Rigidbody rb;
     private Animator animator;
     private Vector2 input;
 
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private string currentAnimState = "Idle";
@@ -26,11 +27,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (input.magnitude > 0)
+        if (input.sqrMagnitude > 0)
         {
             if (currentAnimState != "Movement")
             {
-                animator.CrossFade("Movement", 0, 0);
+                animator.SetFloat("Horizontal", input.x);
+                animator.SetFloat("Vertical", input.y);
+                animator.SetFloat("Speed", input.sqrMagnitude);
                 currentAnimState = "Movement";
                 RemoveFocus();
             }
@@ -65,18 +68,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        rb.MovePosition(transform.position + new Vector3(input.x, input.y).normalized * movementSpeed * Time.deltaTime);
-    }
-
     void SetFocus (Interactable newFocus)
     {
         focus = newFocus;
+        transform.position = Vector2.MoveTowards(transform.position, focus.transform.position, movementSpeed);
     }
 
     void RemoveFocus ()
     {
         focus = null;
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(transform.position + new Vector3(input.x, 0, input.y).normalized * movementSpeed * Time.deltaTime);
     }
 }

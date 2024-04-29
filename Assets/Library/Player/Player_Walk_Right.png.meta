@@ -110,8 +110,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,10 +129,10 @@ TextureImporter:
       name: Player_Walk_Right_1
       rect:
         serializedVersion: 2
-        x: 63
+        x: 37
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,10 +150,10 @@ TextureImporter:
       name: Player_Walk_Right_2
       rect:
         serializedVersion: 2
-        x: 126
+        x: 74
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,10 +171,10 @@ TextureImporter:
       name: Player_Walk_Right_3
       rect:
         serializedVersion: 2
-        x: 189
+        x: 111
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,10 +192,10 @@ TextureImporter:
       name: Player_Walk_Right_4
       rect:
         serializedVersion: 2
-        x: 252
+        x: 148
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,10 +213,10 @@ TextureImporter:
       name: Player_Walk_Right_5
       rect:
         serializedVersion: 2
-        x: 315
+        x: 185
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +234,10 @@ TextureImporter:
       name: Player_Walk_Right_6
       rect:
         serializedVersion: 2
-        x: 378
+        x: 222
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,10 +255,10 @@ TextureImporter:
       name: Player_Walk_Right_7
       rect:
         serializedVersion: 2
-        x: 441
+        x: 259
         y: 0
-        width: 63
-        height: 45
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

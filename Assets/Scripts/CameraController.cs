@@ -5,17 +5,16 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    public GameObject player;
-    public float speed;
+    public Transform player;
+    public Vector3 offset;
+    public float pitch = 2f;
+    private float currentZoom = 10f;
 
-    void Start()
-    {
-        speed = Time.deltaTime * 100;
-    }
 
     void LateUpdate()
     {
-        gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, new Vector3(0, gameObject.transform.position.x, player.gameObject.transform.position.z), speed);
+        transform.position = player.position - offset * currentZoom;
+        transform.LookAt(player.position + Vector3.up * pitch);
     }
 
 }
