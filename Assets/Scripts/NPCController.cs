@@ -7,6 +7,7 @@ public class NPCController : Interactable
     public PortalController portal;
     public ChaliceController chalice;
     public Animator animator;
+    public CanvasGroup firstBone;
     public bool fistInteraction = false;
 
     public override void Update()
@@ -31,7 +32,7 @@ public class NPCController : Interactable
             portal.levelComplete();
             Transform();
             Debug.Log("Obrigada! Aqui está uma recompensa!");
-            // Adiciona o rabo ao inventario
+            Inventory.Add(firstBone);
         }
         else
         {
