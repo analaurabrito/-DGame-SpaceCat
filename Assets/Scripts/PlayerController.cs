@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
 
 
-    private Rigidbody rb;
-    private Animator animator;
+    public Rigidbody rb;
+    public Animator animator;
     private Vector2 input;
 
     Camera cam;
@@ -22,30 +22,24 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private string currentAnimState = "Idle";
-
     void Update()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        animator.SetFloat("Horizontal", input.x);
+        animator.SetFloat("Vertical", input.y);
+        animator.SetFloat("Speed", input.sqrMagnitude);
+
         if (input.sqrMagnitude > 0)
         {
-            if (currentAnimState != "Movement")
-            {
-                animator.SetFloat("Horizontal", input.x);
-                animator.SetFloat("Vertical", input.y);
-                animator.SetFloat("Speed", input.sqrMagnitude);
-                currentAnimState = "Movement";
-                RemoveFocus();
-            }
+            RemoveFocus();
         }
-        else
+        if(Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
         {
-            if (currentAnimState != "Idle")
-            {
-                animator.CrossFade("Idle", 0, 0);
-                currentAnimState = "Idle";
-            }
+            animator.SetFloat("lastHorizontal", Input.GetAxisRaw("Horizontal"));
+            animator.SetFloat("lastVertical", Input.GetAxisRaw("Vertical"));
         }
+        
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -59,10 +53,7 @@ public class PlayerController : MonoBehaviour
                 if (interactable != null)
                 {
                     SetFocus(interactable);
-                }
-                if (interactable == portal)
-                {
-                    animator.SetTrigger("EnteringPortal");
+                    interactable.Interact();
                 }
             }
         }
@@ -70,17 +61,37 @@ public class PlayerController : MonoBehaviour
 
     void SetFocus (Interactable newFocus)
     {
-        focus = newFocus;
-        transform.position = Vector2.MoveTowards(transform.position, focus.transform.position, movementSpeed);
+        if(newFocus != focus)
+        {
+            if (focus != null)
+                focus.OnDefocused();
+
+            focus = newFocus;
+        }
+
+        newFocus.OnFocused(transform);
     }
 
     void RemoveFocus ()
     {
+        if(focus != null)
+            focus.OnDefocused();
         focus = null;
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + new Vector3(input.x, 0, input.y).normalized * movementSpeed * Time.deltaTime);
+    }
+
+    public void Stop ()
+    {
+        movementSpeed = 0f;
+    }
+
+    public void MoveToPosition(Transform target)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        rb.MovePosition((rb.position + direction * movementSpeed) * Time.deltaTime);
     }
 }

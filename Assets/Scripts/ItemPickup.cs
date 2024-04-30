@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPickup : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Interact()
     {
-        
+        PickUp();
+    }
+
+    public virtual void PickUp()
+    {
+        Debug.Log("Picking up item.");
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
     }
+
 }
